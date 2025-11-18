@@ -1,0 +1,19 @@
+{
+    'name': 'Purchase RFQ Extensions',
+    'version': '1.0.1',
+    'summary': 'Allow RFQs to be assigned to multiple vendors, collect bids, select winners and add purchase requests',
+    'category': 'Purchases',
+    'author': 'Joseph Mbugua',
+    'depends': ['purchase', 'stock', 'portal', 'mail', 'hr'],
+    'license': 'LGPL-3',
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'data': [
+        'data/sequence_data.xml',
+        'security/ir.model.access.csv',
+        'views/purchase_order_ext_views.xml',
+        'views/purchase_rfq_bid_views.xml',
+        'views/purchase_request_views.xml',
+    ],
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Main App Menu -->
+  <menuitem
+      id="menu_purchase_rfq_ext_app"
+      name="Purchase RFQ Ext"
+      sequence="10"
+      web_icon="purchase_rfq_ext,static/description/icon.png"
+  />
+
+  <!-- RFQ Bids submenu -->
+  <menuitem
+      id="menu_purchase_rfq_bids_app"
+      name="RFQ Bids"
+      parent="menu_purchase_rfq_ext_app"
+      action="action_purchase_rfq_bid"
+      sequence="1"
+  />
+
+  <!-- Action for RFQ Bids -->
+  <record id="action_purchase_rfq_bid" model="ir.actions.act_window">
+    <field name="name">RFQ Bids</field>
+    <field name="res_model">purchase.rfq.bid</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <!-- Tree/List View -->
+  <record id="view_purchase_rfq_bid_list" model="ir.ui.view">
+    <field name="name">purchase.rfq.bid.list</field>
+    <field name="model">purchase.rfq.bid</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name"/>
+        <field name="rfq_id"/>
+        <field name="vendor_id"/>
+        <field name="state"/>
+        <field name="price"/>
+        <field name="user_id"/>
+        <field name="create_date"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form View -->
+  <record id="view_purchase_rfq_bid_form" model="ir.ui.view">
+    <field name="name">purchase.rfq.bid.form</field>
+    <field name="model">purchase.rfq.bid</field>
+    <field name="arch" type="xml">
+      <form string="RFQ Bid">
+        <sheet>
+          <group>
+            <field name="name" readonly="1"/>
+            <field name="rfq_id"/>
+            <field name="vendor_id"/>
+            <field name="state"/>
+            <field name="price"/>
+          </group>
+
+          <group>
+            <field name="product_lines">
+              <list editable="bottom">
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal"/>
+              </list>
+            </field>
+          </group>
+
+          <footer>
+            <button string="Submit" type="object" name="action_submit" class="btn-primary"/>
+            <button string="Accept and Create PO" type="object" name="action_accept" class="oe_highlight"/>
+            <button string="Discard" special="cancel"/>
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>
