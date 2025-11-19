@@ -1,11 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_purchase_rfq_bid_user,purchase.rfq.bid.user,model_purchase_rfq_bid,base.group_user,1,1,1,0
-access_purchase_rfq_bid_manager,purchase.rfq.bid.manager,model_purchase_rfq_bid,purchase.group_purchase_manager,1,1,1,1
-access_rfq_vendor_line_user,access_rfq_vendor_line,model_rfq_vendor_line,base.group_user,1,1,1,0
-access_rfq_vendor_line_manager,access_rfq_vendor_line_manager,model_rfq_vendor_line,purchase.group_purchase_manager,1,1,1,1
-access_purchase_rfq_bid_line_user,access_purchase_rfq_bid_line,model_purchase_rfq_bid_line,base.group_user,1,1,1,0
-access_purchase_rfq_bid_line_manager,access_purchase_rfq_bid_line_manager,model_purchase_rfq_bid_line,purchase.group_purchase_manager,1,1,1,1
-access_purchase_request_user,access_purchase_request,model_purchase_request,base.group_user,1,1,1,0
-access_purchase_request_manager,access_purchase_request_manager,model_purchase_request,purchase.group_purchase_manager,1,1,1,1
-access_purchase_request_line_user,access_purchase_request_line,model_purchase_request_line,base.group_user,1,1,1,0
-access_purchase_request_line_manager,access_purchase_request_line_manager,model_purchase_request_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_rfq_bid_user,purchase.rfq.bid user,model_purchase_rfq_bid,base.group_user,1,1,1,0
+access_purchase_rfq_bid_manager,purchase.rfq.bid manager,model_purchase_rfq_bid,purchase.group_purchase_manager,1,1,1,1
+access_rfq_vendor_line_user,rfq.vendor.line user,model_rfq_vendor_line,base.group_user,1,1,1,0
+access_rfq_vendor_line_manager,rfq.vendor.line manager,model_rfq_vendor_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_rfq_bid_line_user,purchase.rfq.bid.line user,model_purchase_rfq_bid_line,base.group_user,1,1,1,0
+access_purchase_rfq_bid_line_manager,purchase.rfq.bid.line manager,model_purchase_rfq_bid_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_request_user,purchase.request user,model_purchase_request,base.group_user,1,1,1,0
+access_purchase_request_manager,purchase.request manager,model_purchase_request,purchase.group_purchase_manager,1,1,1,1
+access_purchase_request_line_user,purchase.request.line user,model_purchase_request_line,base.group_user,1,1,1,0
+access_purchase_request_line_manager,purchase.request.line manager,model_purchase_request_line,purchase.group_purchase_manager,1,1,1,1
+access_purchase_rfq_bid_portal,purchase.rfq.bid portal,model_purchase_rfq_bid,base.group_portal,1,0,1,0
+access_purchase_rfq_bid_line_portal,purchase.rfq.bid.line portal,model_purchase_rfq_bid_line,base.group_portal,1,0,1,0

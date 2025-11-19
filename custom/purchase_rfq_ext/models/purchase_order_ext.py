@@ -1,5 +1,6 @@
 # purchase_order_ext.py
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class PurchaseOrder(models.Model):
@@ -45,7 +46,7 @@ class PurchaseOrder(models.Model):
 
     def action_view_rfq_bids(self):
         self.ensure_one()
-        action = self.env.ref('purchase_rfq_ext.action_purchase_rfq_bid_tree').read()[0]
+        action = self.env.ref('purchase_rfq_ext.action_purchase_rfq_bid').read()[0]
         action['domain'] = [('rfq_id', '=', self.id)]
         return action
 
@@ -72,3 +73,28 @@ class PurchaseOrder(models.Model):
         po_vals['order_line'] = line_vals
         new_po = self.env['purchase.order'].create(po_vals)
         return new_po
+
+    def action_send_to_vendors(self):
+        for order in self:
+            if not order.vendor_ids:
+                raise UserError("Please select at least one vendor.")
+
+            vendor_lines = []
+            for partner in order.vendor_ids:
+                # Create vendor line
+                line = self.env['rfq.vendor.line'].create({
+                    'order_id': order.id,
+                    'partner_id': partner.id,
+                    'state': 'sent',
+                    'date_sent': fields.Datetime.now(),
+                })
+                vendor_lines.append(line)
+
+                # Send email
+                template = self.env.ref('purchase_procurement.email_template_rfq_to_vendor')
+                template.send_mail(line.id, force_send=True)
+
+            order.message_post(body="RFQ sent to vendors: %s" %
+                                    ", ".join(order.vendor_ids.mapped('name')))
+
+        return True

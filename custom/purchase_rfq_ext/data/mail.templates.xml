@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="email_template_rfq_to_vendor" model="mail.template">
+        <field name="name">RFQ Sent to Vendor</field>
+        <field name="model_id" ref="purchase_procurement.model_rfq_vendor_line"/>
+        <field name="email_from">${(user.email or 'noreply@yourcompany.com')}</field>
+        <field name="email_to">${object.vendor_id.email}</field>
+        <field name="subject">Request for Quotation: ${object.rfq_id.name}</field>
+        <field name="body_html">
+            <![CDATA[
+<p>Hello ${object.vendor_id.name},</p>
+
+<p>You have been invited to submit a quotation for:</p>
+<p><strong>${object.rfq_id.name}</strong></p>
+
+<p>Please login to your vendor portal to submit your bid:</p>
+<p>
+    <a href="${object.get_base_url()}/my/rfqs/${object.rfq_id.id}/submit-bid">
+        Submit Bid
+    </a>
+</p>
+
+<p>Thank you.</p>
+            ]]>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,8 @@
+<odoo>
+    <record id="rule_portal_see_own_bids" model="ir.rule">
+        <field name="name">Portal - See Own Bids</field>
+        <field name="model_id" ref="model_purchase_rfq_bid"/>
+        <field name="groups" eval="[(4, ref('portal.group_portal'))]"/>
+        <field name="domain_force">[('vendor_id','=', user.partner_id.id)]</field>
+    </record>
+</odoo>

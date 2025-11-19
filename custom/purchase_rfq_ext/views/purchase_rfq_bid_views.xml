@@ -5,7 +5,7 @@
   <menuitem
       id="menu_purchase_rfq_ext_app"
       name="Purchase RFQ Ext"
-      sequence="10"
+      sequence="30"
       web_icon="purchase_rfq_ext,static/description/icon.png"
   />
 

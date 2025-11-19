@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Add RFQ counter to portal home -->
+    <template id="portal_my_home_menu_rfqs" name="Portal My Home : RFQ entries" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="vendor_rfq_count" t-value="vendor_rfq_count if vendor_rfq_count is defined else 0"/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">RFQs</t>
+                <t t-set="url" t-value="'/my/rfqs'"/>
+                <t t-set="placeholder_count" t-value="'vendor_rfq_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- RFQ list for vendors -->
+    <template id="portal_my_rfqs" name="Vendor RFQs">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Your RFQs</t>
+            </t>
+
+            <t t-if="not rfqs">
+                <div class="alert alert-info">
+                    <p>No RFQs assigned to you.</p>
+                </div>
+            </t>
+
+            <t t-if="rfqs">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>RFQ</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="rfqs" t-as="r">
+                            <tr>
+                                <td><span t-field="r.name"/></td>
+                                <td><span t-field="r.date_order"/></td>
+                                <td><span t-field="r.state"/></td>
+                                <td class="text-center">
+                                    <a t-attf-href="/my/rfqs/#{r.id}/submit-bid"
+                                       class="btn btn-sm btn-primary">Submit Bid</a>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <!-- Submit Bid Form -->
+    <template id="portal_submit_rfq_bid" name="Submit Bid">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2>Submit Bid for <span t-field="rfq.name"/></h2>
+
+                <form method="post" class="mt-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Your Unit Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rfq.order_line" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-field="line.product_id.display_name"/>
+                                        <input type="hidden" name="product_id" t-att-value="line.product_id.id"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="qty" step="0.01"
+                                               class="form-control"
+                                               t-att-value="line.product_qty"
+                                               required="required"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="price" step="0.01"
+                                               class="form-control"
+                                               placeholder="0.00"
+                                               required="required"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-success">Submit Bid</button>
+                        <a t-attf-href="/my/rfqs" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>

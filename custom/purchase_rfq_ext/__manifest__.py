@@ -15,5 +15,6 @@
         'views/purchase_order_ext_views.xml',
         'views/purchase_rfq_bid_views.xml',
         'views/purchase_request_views.xml',
+        'views/portal_rfq_templates.xml',
     ],
 }
